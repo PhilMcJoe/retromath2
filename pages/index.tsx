@@ -64,7 +64,7 @@ export default function Home() {
   const generateProblem = () => {
     const operations = ['+', '-', '*', '/'];
     const operation = operations[Math.floor(Math.random() * operations.length)];
-    let num1, num2, answer;
+    let num1: number, num2: number, answer: number;
 
     switch (operation) {
       case '+':
@@ -87,6 +87,8 @@ export default function Home() {
         answer = Math.floor(Math.random() * 10) + 1; // Quotient between 1 and 10
         num1 = num2 * answer; // Ensure division results in a whole number
         break;
+      default:
+        throw new Error('Invalid operation');
     }
 
     setCurrentProblem({ 
