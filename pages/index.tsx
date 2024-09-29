@@ -166,7 +166,7 @@ export default function Home() {
             className="px-6 py-3 border border-green-500 hover:bg-green-500 hover:text-black transition-colors mb-4"
             onClick={() => setGameState("login")}
           >
-            Enter the Matrix
+            Enter the Challenge
           </button>
         </div>
       )}
