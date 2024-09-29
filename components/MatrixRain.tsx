@@ -11,8 +11,10 @@ const MatrixRain: React.FC = () => {
     if (!ctx) return;
 
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      if (canvas) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
     };
 
     resizeCanvas();
@@ -25,8 +27,6 @@ const MatrixRain: React.FC = () => {
     const drops: number[] = Array(columns).fill(1);
 
     function draw() {
-      if (!ctx) return;  // Add this null check
-
       ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
