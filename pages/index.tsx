@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import localFont from "next/font/local";
-import MatrixRain from "../components/MatrixRain";
 
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
@@ -55,12 +54,6 @@ export default function Home() {
     }
   }, [gameState]);
 
-  useEffect(() => {
-    if (gameState === "playing" && timeLeft === 0) {
-      setGameState("gameover");
-    }
-  }, [timeLeft, gameState]);
-
   const generateProblem = () => {
     const operations = ['+', '-', '*', '/'];
     const operation = operations[Math.floor(Math.random() * operations.length)];
@@ -74,7 +67,7 @@ export default function Home() {
         break;
       case '-':
         num1 = Math.floor(Math.random() * 20) + 1;
-        num2 = Math.floor(Math.random() * num1) + 1; // Ensure num2 is smaller than num1
+        num2 = Math.floor(Math.random() * num1) + 1;
         answer = num1 - num2;
         break;
       case '*':
@@ -83,9 +76,9 @@ export default function Home() {
         answer = num1 * num2;
         break;
       case '/':
-        num2 = Math.floor(Math.random() * 9) + 2; // Divisor between 2 and 10
-        answer = Math.floor(Math.random() * 10) + 1; // Quotient between 1 and 10
-        num1 = num2 * answer; // Ensure division results in a whole number
+        num2 = Math.floor(Math.random() * 9) + 2;
+        answer = Math.floor(Math.random() * 10) + 1;
+        num1 = num2 * answer;
         break;
       default:
         throw new Error('Invalid operation');
@@ -103,7 +96,7 @@ export default function Home() {
       setTimeLeft(time => Math.min(time + difficultySettings[difficulty].timeBonus, difficultySettings[difficulty].initialTime));
       generateProblem();
     } else {
-      setTimeLeft(time => Math.max(time - 5, 0)); // Penalty for wrong answer
+      setTimeLeft(time => Math.max(time - 5, 0));
     }
     setUserAnswer("");
   };
@@ -126,8 +119,6 @@ export default function Home() {
   };
 
   const handleLogin = () => {
-    // In a real application, you would validate the credentials against a backend
-    // For this example, we'll just check if the username is not empty
     if (username.trim() !== "") {
       setLoggedInUser(username);
       setGameState("difficulty");
@@ -142,7 +133,7 @@ export default function Home() {
       newLeaderboard.sort((a, b) => b.score - a.score);
       return {
         ...prevLeaderboards,
-        [difficulty]: newLeaderboard.slice(0, 5) // Keep only top 5 scores
+        [difficulty]: newLeaderboard.slice(0, 5)
       };
     });
   };
@@ -169,18 +160,15 @@ export default function Home() {
   return (
     <div className={`${geistMono.variable} font-mono min-h-screen bg-black text-green-500 p-8 relative overflow-hidden`}>
       {gameState === "splash" && (
-        <>
-          <MatrixRain />
-          <div className="flex flex-col items-center justify-center h-screen relative z-10">
-            <h1 className="text-4xl mb-8 animate-pulse">Matrix Math Challenge</h1>
-            <button
-              className="px-6 py-3 border border-green-500 hover:bg-green-500 hover:text-black transition-colors mb-4"
-              onClick={() => setGameState("login")}
-            >
-              Enter the Matrix
-            </button>
-          </div>
-        </>
+        <div className="flex flex-col items-center justify-center h-screen relative z-10">
+          <h1 className="text-4xl mb-8 animate-pulse">Matrix Math Challenge</h1>
+          <button
+            className="px-6 py-3 border border-green-500 hover:bg-green-500 hover:text-black transition-colors mb-4"
+            onClick={() => setGameState("login")}
+          >
+            Enter the Matrix
+          </button>
+        </div>
       )}
 
       {gameState === "login" && (
