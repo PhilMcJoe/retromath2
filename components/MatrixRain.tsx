@@ -8,7 +8,7 @@ const MatrixRain: React.FC = () => {
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    if (!ctx) return;  // Add this check
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -23,6 +23,8 @@ const MatrixRain: React.FC = () => {
     }
 
     function draw() {
+      if (!ctx) return;  // Add this check
+
       ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
