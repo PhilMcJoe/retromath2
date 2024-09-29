@@ -1,10 +1,12 @@
-import "@/styles/globals.css";
-import type { AppProps } from "next/app";
+import { ClerkProvider } from '@clerk/nextjs';
+import type { AppProps } from 'next/app';
 
-export default function App({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div className="dark">
+    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
       <Component {...pageProps} />
-    </div>
+    </ClerkProvider>
   );
 }
+
+export default MyApp;
